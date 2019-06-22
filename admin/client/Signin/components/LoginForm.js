@@ -12,11 +12,12 @@ const LoginForm = ({
 	handleSubmit,
 	isAnimating,
 	password,
+	t
 }) => {
 	return (
 		<div className="auth-box__col">
 			<Form onSubmit={handleSubmit} noValidate>
-				<FormField label="Email" htmlFor="email">
+				<FormField label={t('Email')} htmlFor="email">
 					<FormInput
 						autoFocus
 						type="email"
@@ -25,7 +26,7 @@ const LoginForm = ({
 						value={email}
 					/>
 				</FormField>
-				<FormField label="Password" htmlFor="password">
+				<FormField label={t('Password')} htmlFor="password">
 					<FormInput
 						type="password"
 						name="password"
@@ -34,7 +35,7 @@ const LoginForm = ({
 					/>
 				</FormField>
 				<Button disabled={isAnimating} color="primary" type="submit">
-					Sign In
+					{t('Sign In')}
 				</Button>
 			</Form>
 		</div>
