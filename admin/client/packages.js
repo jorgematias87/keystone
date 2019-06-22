@@ -38,4 +38,6 @@ module.exports = [
 	'redux',
 	'vkey',
 	'xhr',
+	'i18next',
+	'react-i18next'
 ];

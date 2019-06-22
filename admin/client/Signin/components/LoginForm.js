@@ -4,6 +4,7 @@
 
 import React, { PropTypes } from 'react';
 import { Button, Form, FormField, FormInput } from '../../App/elemental';
+import { withTranslation } from 'react-i18next';
 
 const LoginForm = ({
 	email,
@@ -48,5 +49,4 @@ LoginForm.propTypes = {
 	password: PropTypes.string,
 };
 
-
-module.exports = LoginForm;
+export default withTranslation()(LoginForm);
