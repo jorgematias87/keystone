@@ -9,9 +9,13 @@ import qs from 'qs';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Signin from './Signin';
-import { I18nextProvider } from 'react-i18next';
+import { addLocaleData, IntlProvider } from 'react-intl';
 
-import i18n from '../i18n';
+import en from 'react-intl/locale-data/en';
+import es from 'react-intl/locale-data/es';
+import translation from '../translation';
+
+addLocaleData([...en, ...es]);
 
 // Sanitize from param
 const internalFromRegex = /^\/[^\/\\]\w+/;
@@ -19,7 +23,7 @@ const params = qs.parse(window.location.search.replace(/^\?/, ''));
 const from = internalFromRegex.test(params.from) ? params.from : undefined;
 
 ReactDOM.render(
-	<I18nextProvider i18n={i18n}>
+	<IntlProvider locale={'es'} messages={translation.es}>
 		<Signin
 			brand={Keystone.brand}
 			from={from}
@@ -27,6 +31,6 @@ ReactDOM.render(
 			user={Keystone.user}
 			userCanAccessKeystone={Keystone.userCanAccessKeystone}
 		/>
-	</I18nextProvider>,
+	</IntlProvider>,
 	document.getElementById('signin-view')
 );
