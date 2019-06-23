@@ -4,7 +4,7 @@
 
 import React, { PropTypes } from 'react';
 import { Button, Form, FormField, FormInput } from '../../App/elemental';
-import { withTranslation } from 'react-i18next';
+import { injectIntl } from 'react-intl';
 
 const LoginForm = ({
 	email,
@@ -12,12 +12,12 @@ const LoginForm = ({
 	handleSubmit,
 	isAnimating,
 	password,
-	t
+	intl
 }) => {
 	return (
 		<div className="auth-box__col">
 			<Form onSubmit={handleSubmit} noValidate>
-				<FormField label={t('Email')} htmlFor="email">
+				<FormField label={intl.formatMessage({ id: 'Email' })} htmlFor="email">
 					<FormInput
 						autoFocus
 						type="email"
@@ -26,7 +26,7 @@ const LoginForm = ({
 						value={email}
 					/>
 				</FormField>
-				<FormField label={t('Password')} htmlFor="password">
+				<FormField label={intl.formatMessage({ id: 'Password' })} htmlFor="password">
 					<FormInput
 						type="password"
 						name="password"
@@ -35,7 +35,7 @@ const LoginForm = ({
 					/>
 				</FormField>
 				<Button disabled={isAnimating} color="primary" type="submit">
-					{t('Sign In')}
+					{intl.formatMessage({ id: 'Sign In' })}
 				</Button>
 			</Form>
 		</div>
@@ -50,4 +50,4 @@ LoginForm.propTypes = {
 	password: PropTypes.string,
 };
 
-export default withTranslation()(LoginForm);
+export default injectIntl(LoginForm);
