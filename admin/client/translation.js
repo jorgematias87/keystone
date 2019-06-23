@@ -8,7 +8,7 @@ export default {
 		signedout: 'You have been signed out.',
 		open: 'Open',
 		hi: 'Hi {userName},',
-
+		sortedBy: 'sorted by'
 	},
 	es: {
 		email: 'Email',
@@ -19,5 +19,6 @@ export default {
 		signedout: 'Te deslogueaste.',
 		open: 'Abrir',
 		hi: 'Hola {userName},',
+		sortedBy: 'ordenados por'
 	}
 };

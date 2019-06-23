@@ -1,6 +1,7 @@
 import { FormNote, FormField, FormInput } from '../../../elemental';
 import React, { PropTypes } from 'react';
 import vkey from 'vkey';
+import { injectIntl } from 'react-intl';
 
 import Kbd from '../../../shared/Kbd';
 import Popout from '../../../shared/Popout';
@@ -96,12 +97,13 @@ var ListSort = React.createClass({
 		// TODO: Handle multiple sort paths
 		const activeSortPath = this.props.activeSort.paths[0];
 		const formFieldStyles = { borderBottom: '1px dashed rgba(0,0,0,0.1)', paddingBottom: '1em' };
+		const { intl } = this.props;
 
 		return (
 			<span>
 				{activeSortPath && (
 					<span>
-						<span style={{ color: '#999' }}> sorted by </span>
+						<span style={{ color: '#999' }}> {intl.formatMessage({ id: 'sortedBy' })} </span>
 						<a id="listHeaderSortButton" href="javascript:;" onClick={this.openPopout}>
 							{activeSortPath.label.toLowerCase()}
 							{activeSortPath.invert ? ' (descending)' : ''}
@@ -135,4 +137,4 @@ var ListSort = React.createClass({
 	},
 });
 
-module.exports = ListSort;
+module.exports = injectIntl(ListSort);
