@@ -4,6 +4,7 @@ import Popout from '../../../shared/Popout';
 import PopoutList from '../../../shared/Popout/PopoutList';
 import ListHeaderButton from './ListHeaderButton';
 import { LabelledControl, Form, FormField, SegmentedControl } from '../../../elemental';
+import { injectIntl, intlShape } from 'react-intl';
 
 import { downloadItems } from '../actions';
 const FORMAT_OPTIONS = [
@@ -144,6 +145,7 @@ var ListDownloadForm = React.createClass({
 	},
 	render () {
 		const { useCurrentColumns } = this.state;
+		const { intl } = this.props;
 
 		return (
 			<div>
@@ -151,14 +153,14 @@ var ListDownloadForm = React.createClass({
 					active={this.state.isOpen}
 					id="listHeaderDownloadButton"
 					glyph="cloud-download"
-					label="Download"
+					label={intl.formatMessage({ id: 'download' })}
 					onClick={() => this.togglePopout(!this.state.isOpen)}
 				/>
 				<Popout isOpen={this.state.isOpen} onCancel={() => this.togglePopout(false)} relativeToID="listHeaderDownloadButton">
-					<Popout.Header title="Download" />
+					<Popout.Header title={intl.formatMessage({ id: 'download' })} />
 					<Popout.Body scrollable>
 						<Form layout="horizontal" labelWidth={100} component="div">
-							<FormField label="File format:">
+							<FormField label={`${intl.formatMessage({ id: 'format' })}:`}>
 								<SegmentedControl
 									equalWidthSegments
 									onChange={this.changeFormat}
@@ -166,11 +168,11 @@ var ListDownloadForm = React.createClass({
 									value={this.state.format}
 								/>
 							</FormField>
-							<FormField label="Columns:" style={{ marginBottom: 0 }}>
+							<FormField label={`${intl.formatMessage({ id: 'columns' })}:`} style={{ marginBottom: 0 }}>
 								<LabelledControl
 									autoFocus
 									checked={useCurrentColumns}
-									label="Use currently selected"
+									label={intl.formatMessage({ id: 'useCurrentlySelected' })}
 									onChange={this.toggleCurrentlySelectedColumns}
 									type="checkbox"
 									value
@@ -181,13 +183,13 @@ var ListDownloadForm = React.createClass({
 					</Popout.Body>
 					<Popout.Footer
 						primaryButtonAction={this.handleDownloadRequest}
-						primaryButtonLabel="Download"
+						primaryButtonLabel={intl.formatMessage({ id: 'download' })}
 						secondaryButtonAction={() => this.togglePopout(false)}
-						secondaryButtonLabel="Cancel" />
+						secondaryButtonLabel={intl.formatMessage({ id: 'cancel' })} />
 				</Popout>
 			</div>
 		);
 	},
 });
 
-module.exports = ListDownloadForm;
+module.exports = injectIntl(ListDownloadForm);

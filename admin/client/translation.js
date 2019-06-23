@@ -21,7 +21,10 @@ export default {
 		apply: 'Apply',
 		cancel: 'Cancel',
 		columns: 'Columns',
-		findAColumn: 'Find a column...'
+		findAColumn: 'Find a column...',
+		download: 'Download',
+		format: 'Format',
+		useCurrentlySelected: 'Use currently selected'
 	},
 	es: {
 		email: 'Email',
@@ -45,6 +48,9 @@ export default {
 		apply: 'Aplicar',
 		cancel: 'Cancelar',
 		columns: 'Columnas',
-		findAColumn: 'Encontrar una columna...'
+		findAColumn: 'Encontrar una columna...',
+		download: 'Descargar',
+		format: 'Formato',
+		useCurrentlySelected: 'Usar seleccionado'
 	}
 };
