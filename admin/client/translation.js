@@ -15,7 +15,9 @@ export default {
 		create: 'Create',
 		expandTable: 'Expand table width',
 		search: 'Search',
-		clearSearch: 'Clear search query'
+		clearSearch: 'Clear search query',
+		filter: 'Filter',
+		findAFilter: 'Find a filter...'
 	},
 	es: {
 		email: 'Email',
@@ -33,6 +35,8 @@ export default {
 		create: 'Crear',
 		expandTable: 'Expandir tabla',
 		search: 'Buscar',
-		clearSearch: 'Borrar busqueda'
+		clearSearch: 'Borrar busqueda',
+		filter: 'Filtrar',
+		findAFilter: 'Encontrar un filtro...'
 	}
 };

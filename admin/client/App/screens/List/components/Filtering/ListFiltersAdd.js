@@ -8,6 +8,7 @@ import Popout from '../../../../shared/Popout';
 import PopoutList from '../../../../shared/Popout/PopoutList';
 import { FormInput } from '../../../../elemental';
 import ListHeaderButton from '../ListHeaderButton';
+import { injectIntl } from 'react-intl';
 
 import { setFilter } from '../../actions';
 
@@ -70,6 +71,7 @@ var ListFiltersAdd = React.createClass({
 		const activeFilterPaths = activeFilterFields.map(obj => obj.path);
 		const { searchString } = this.state;
 		let filteredFilters = this.props.availableFilters;
+		const { intl } = this.props;
 
 		if (searchString) {
 			filteredFilters = filteredFilters
@@ -112,7 +114,7 @@ var ListFiltersAdd = React.createClass({
 					<div style={formFieldStyles}>
 						<FormInput
 							onChange={this.updateSearch}
-							placeholder="Find a filter..."
+							placeholder={intl.formatMessage({ id: 'findAFilter' })}
 							ref="search"
 							value={this.state.searchString}
 						/>
@@ -146,6 +148,7 @@ var ListFiltersAdd = React.createClass({
 		const popoutPanesClassname = classnames('Popout__panes', {
 			'Popout__scrollable-area': !selectedField,
 		});
+		const { intl } = this.props;
 
 		return (
 			<div>
@@ -153,14 +156,14 @@ var ListFiltersAdd = React.createClass({
 					active={isOpen}
 					glyph="eye"
 					id="listHeaderFilterButton"
-					label="Filter"
+					label={intl.formatMessage({ id: 'filter' })}
 					onClick={isOpen ? this.closePopout : this.openPopout}
 				/>
 				<Popout isOpen={isOpen} onCancel={this.closePopout} relativeToID="listHeaderFilterButton">
 					<Popout.Header
 						leftAction={selectedField ? this.navigateBack : null}
 						leftIcon={selectedField ? 'chevron-left' : null}
-						title={selectedField ? selectedField.label : 'Filter'}
+						title={selectedField ? selectedField.label : intl.formatMessage({ id: 'filter' })}
 						transitionDirection={selectedField ? 'next' : 'prev'} />
 					<Transition
 						className={popoutPanesClassname}
@@ -178,4 +181,4 @@ var ListFiltersAdd = React.createClass({
 	},
 });
 
-module.exports = ListFiltersAdd;
+module.exports = injectIntl(ListFiltersAdd);
