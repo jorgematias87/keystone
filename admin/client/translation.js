@@ -1,12 +1,14 @@
 export default {
 	en: {
-		'Email': 'Email',
-		'Password': 'Password',
-		'Sign In': 'Sign In'
+		email: 'Email',
+		password: 'Password',
+		signin: 'Sign In',
+		signedout: 'You have been signed out.'
 	},
 	es: {
-		'Email': 'Email',
-		'Password': 'Contraseña',
-		'Sign In': 'Ingresar'
+		email: 'Email',
+		password: 'Contraseña',
+		signin: 'Ingresar',
+		signedout: 'Te deslogueaste.'
 	}
 };

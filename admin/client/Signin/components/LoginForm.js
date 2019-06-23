@@ -17,7 +17,7 @@ const LoginForm = ({
 	return (
 		<div className="auth-box__col">
 			<Form onSubmit={handleSubmit} noValidate>
-				<FormField label={intl.formatMessage({ id: 'Email' })} htmlFor="email">
+				<FormField label={intl.formatMessage({ id: 'email' })} htmlFor="email">
 					<FormInput
 						autoFocus
 						type="email"
@@ -26,7 +26,7 @@ const LoginForm = ({
 						value={email}
 					/>
 				</FormField>
-				<FormField label={intl.formatMessage({ id: 'Password' })} htmlFor="password">
+				<FormField label={intl.formatMessage({ id: 'password' })} htmlFor="password">
 					<FormInput
 						type="password"
 						name="password"
@@ -35,7 +35,7 @@ const LoginForm = ({
 					/>
 				</FormField>
 				<Button disabled={isAnimating} color="primary" type="submit">
-					{intl.formatMessage({ id: 'Sign In' })}
+					{intl.formatMessage({ id: 'signin' })}
 				</Button>
 			</Form>
 		</div>
