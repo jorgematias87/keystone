@@ -13,7 +13,9 @@ export default {
 		findField: 'Find a field...',
 		toggleListSort: 'Hold {alt} to toggle ascending/descending',
 		create: 'Create',
-		expandTable: 'Expand table width'
+		expandTable: 'Expand table width',
+		search: 'Search',
+		clearSearch: 'Clear search query'
 	},
 	es: {
 		email: 'Email',
@@ -29,6 +31,8 @@ export default {
 		findField: 'Encontrar un campo...',
 		toggleListSort: 'Presionar {alt} para cambiar de ascendente/descendente',
 		create: 'Crear',
-		expandTable: 'Expandir tabla'
+		expandTable: 'Expandir tabla',
+		search: 'Buscar',
+		clearSearch: 'Borrar busqueda'
 	}
 };

@@ -2,15 +2,17 @@ import { css } from 'glamor';
 import React, { PropTypes } from 'react';
 import theme from '../../../../theme';
 import { darken } from '../../../../utils/color';
+import { injectIntl } from 'react-intl';
 
 import { FormInput, Glyph } from '../../../elemental';
 
-function ListHeaderSearch ({
+function ListHeaderSearch({
 	focusInput,
 	handleChange,
 	handleClear,
 	handleKeyup,
 	value,
+	intl,
 	...props
 }) {
 	return (
@@ -19,7 +21,7 @@ function ListHeaderSearch ({
 				data-search-input-field
 				onChange={handleChange}
 				onKeyUp={handleKeyup}
-				placeholder="Search"
+				placeholder={intl.formatMessage({ id: 'search' })}
 				value={value}
 			/>
 			<button
@@ -27,12 +29,12 @@ function ListHeaderSearch ({
 				data-search-input-field-clear-icon
 				disabled={!value.length}
 				onClick={value.length && handleClear}
-				title="Clear search query"
+				title={intl.formatMessage({ id: 'clearSearch' })}
 				type="button"
 			>
 				<Glyph name={value.length ? 'x' : 'search'} />
 			</button>
-		</div>
+		</div >
 	);
 };
 
@@ -75,4 +77,4 @@ const classes = {
 	},
 };
 
-module.exports = ListHeaderSearch;
+module.exports = injectIntl(ListHeaderSearch);
