@@ -24,7 +24,16 @@ export default {
 		findAColumn: 'Find a column...',
 		download: 'Download',
 		format: 'Format',
-		useCurrentlySelected: 'Use currently selected'
+		useCurrentlySelected: 'Use currently selected',
+		selectAllRowsWithNotVisible: 'Select all rows (including those not visible)',
+		selectAllRows: 'Select all rows',
+		deselectAllRows: 'Deselect all rows',
+		selected: 'Selected',
+		page: 'Page',
+		delete: 'Delete',
+		all: 'All',
+		none: 'None',
+		manage: 'Manage'
 	},
 	es: {
 		email: 'Email',
@@ -51,6 +60,15 @@ export default {
 		findAColumn: 'Encontrar una columna...',
 		download: 'Descargar',
 		format: 'Formato',
-		useCurrentlySelected: 'Usar seleccionado'
+		useCurrentlySelected: 'Usar seleccionado',
+		selectAllRowsWithNotVisible: 'Seleccionar todas las filas (incluyendo los no visibles)',
+		selectAllRows: 'Seleccionar todas las filas',
+		deselectAllRows: 'Deseleccionar todas las filas',
+		selected: 'Seleccionados',
+		page: 'Página',
+		delete: 'Eliminar',
+		all: 'Todos',
+		none: 'Ninguno',
+		manage: 'Gestionar'
 	}
 };

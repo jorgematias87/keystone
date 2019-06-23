@@ -6,6 +6,7 @@ import {
 	InlineGroupSection as Section,
 	Spinner,
 } from '../../../elemental';
+import { injectIntl } from 'react-intl';
 
 function ListManagement ({
 	checkedItemCount,
@@ -18,6 +19,7 @@ function ListManagement ({
 	nodelete,
 	noedit,
 	selectAllItemsLoading,
+	intl,
 	...props
 }) {
 	// do not render if there's no results
@@ -37,7 +39,7 @@ function ListManagement ({
 				position="left"
 				variant="link"
 				alt="delete">
-				Delete
+				{intl.formatMessage({ id: 'delete' })}
 			</GlyphButton>
 		</Section>
 	);
@@ -51,8 +53,8 @@ function ListManagement ({
 			<Button
 				active={allVisibleButtonIsActive}
 				onClick={() => handleSelect('all')}
-				title="Select all rows (including those not visible)">
-				{selectAllItemsLoading ? <Spinner/> : 'All'} <small style={buttonNoteStyles}>({itemCount})</small>
+				title={intl.formatMessage({ id: 'selectAllRowsWithNotVisible' })}>
+				{selectAllItemsLoading ? <Spinner /> : intl.formatMessage({ id: 'all' })} <small style={buttonNoteStyles}>({itemCount})</small>
 			</Button>
 		</Section>
 	);
@@ -62,13 +64,13 @@ function ListManagement ({
 			<Group contiguous>
 				{selectAllButton}
 				<Section>
-					<Button active={pageVisibleButtonIsActive} onClick={() => handleSelect('visible')} title="Select all rows">
-						{itemCount > itemsPerPage ? 'Page ' : 'All '}
+					<Button active={pageVisibleButtonIsActive} onClick={() => handleSelect('visible')} title={intl.formatMessage({ id: 'selectAllRows' })}>
+						{itemCount > itemsPerPage ? `${intl.formatMessage({ id: 'page' })} ` : `${intl.formatMessage({ id: 'all' })}`}
 						<small style={buttonNoteStyles}>({itemCount > itemsPerPage ? itemsPerPage : itemCount})</small>
 					</Button>
 				</Section>
 				<Section>
-					<Button active={noneButtonIsActive} onClick={() => handleSelect('none')} title="Deselect all rows">None</Button>
+					<Button active={noneButtonIsActive} onClick={() => handleSelect('none')} title={intl.formatMessage({ id: 'deselectAllRows' })}>{intl.formatMessage({ id: 'none' })}</Button>
 				</Section>
 			</Group>
 		</Section>
@@ -78,7 +80,7 @@ function ListManagement ({
 	const selectedCountText = isOpen ? (
 		<Section>
 			<span style={{ color: '#666', display: 'inline-block', lineHeight: '2.4em', margin: 1 }}>
-				{checkedItemCount} selected
+				{checkedItemCount} {intl.formatMessage({ id: 'selected' })}
 			</span>
 		</Section>
 	) : null;
@@ -89,7 +91,7 @@ function ListManagement ({
 			<Group style={{ float: 'left', marginRight: '.75em', marginBottom: 0 }}>
 				<Section>
 					<Button active={isOpen} onClick={() => handleToggle(!isOpen)}>
-						Manage
+						{intl.formatMessage({ id: 'manage' })}
 					</Button>
 				</Section>
 				{selectButtons}
@@ -113,4 +115,4 @@ ListManagement.propTypes = {
 	selectAllItemsLoading: PropTypes.bool,
 };
 
-module.exports = ListManagement;
+module.exports = injectIntl(ListManagement);

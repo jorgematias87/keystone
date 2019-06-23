@@ -4,7 +4,7 @@ import Popout from '../../../shared/Popout';
 import PopoutList from '../../../shared/Popout/PopoutList';
 import ListHeaderButton from './ListHeaderButton';
 import { LabelledControl, Form, FormField, SegmentedControl } from '../../../elemental';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { downloadItems } from '../actions';
 const FORMAT_OPTIONS = [
