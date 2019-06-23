@@ -1,7 +1,7 @@
 import { FormNote, FormField, FormInput } from '../../../elemental';
 import React, { PropTypes } from 'react';
 import vkey from 'vkey';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 import Kbd from '../../../shared/Kbd';
 import Popout from '../../../shared/Popout';
@@ -103,7 +103,7 @@ var ListSort = React.createClass({
 			<span>
 				{activeSortPath && (
 					<span>
-						<span style={{ color: '#999' }}> {intl.formatMessage({ id: 'sortedBy' })} </span>
+						<span style={{ color: '#999' }}><FormattedMessage id="sortedBy" /> </span>
 						<a id="listHeaderSortButton" href="javascript:;" onClick={this.openPopout}>
 							{activeSortPath.label.toLowerCase()}
 							{activeSortPath.invert ? ' (descending)' : ''}
@@ -112,7 +112,7 @@ var ListSort = React.createClass({
 					</span>
 				)}
 				<Popout isOpen={this.state.popoutIsOpen} onCancel={this.closePopout} relativeToID="listHeaderSortButton">
-					<Popout.Header title="Sort" />
+					<Popout.Header title={intl.formatMessage({ id: 'sort' })} />
 
 					<Popout.Body scrollable>
 						<FormField style={formFieldStyles}>
@@ -120,7 +120,7 @@ var ListSort = React.createClass({
 								autoFocus
 								value={this.state.searchString}
 								onChange={this.updateSearch}
-								placeholder="Find a field..."
+								placeholder={intl.formatMessage({ id: 'findField' })}
 							/>
 						</FormField>
 						<PopoutList>
@@ -129,7 +129,7 @@ var ListSort = React.createClass({
 					</Popout.Body>
 
 					<Popout.Footer>
-						<FormNote>Hold <Kbd>alt</Kbd> to toggle ascending/descending</FormNote>
+						<FormNote><FormattedMessage id="toggleListSort" defaultMessage="Presionar {alt} para cambiar de ascendente/descendente" values={{ alt: <Kbd>alt</Kbd> }} /></FormNote>
 					</Popout.Footer>
 				</Popout>
 			</span>

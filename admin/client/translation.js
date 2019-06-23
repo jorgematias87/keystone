@@ -8,7 +8,10 @@ export default {
 		signedout: 'You have been signed out.',
 		open: 'Open',
 		hi: 'Hi {userName},',
-		sortedBy: 'sorted by'
+		sort: 'Sort',
+		sortedBy: 'sorted by',
+		findField: 'Find a field...',
+		toggleListSort: 'Hold {alt} to toggle ascending/descending'
 	},
 	es: {
 		email: 'Email',
@@ -19,6 +22,9 @@ export default {
 		signedout: 'Te deslogueaste.',
 		open: 'Abrir',
 		hi: 'Hola {userName},',
-		sortedBy: 'ordenados por'
+		sort: 'Ordenar',
+		sortedBy: 'ordenados por',
+		findField: 'Encontrar un campo...',
+		toggleListSort: 'Presionar {alt} para cambiar de ascendente/descendente'
 	}
 };
