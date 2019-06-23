@@ -5,6 +5,7 @@ import Popout from '../../../shared/Popout';
 import PopoutList from '../../../shared/Popout/PopoutList';
 import { FormInput } from '../../../elemental';
 import ListHeaderButton from './ListHeaderButton';
+import { injectIntl } from 'react-intl';
 
 import { setActiveColumns } from '../actions';
 
@@ -86,23 +87,25 @@ var ListColumnsForm = React.createClass({
 			marginBottom: '1em',
 			paddingBottom: '1em',
 		};
+		const { intl } = this.props;
+
 		return (
 			<div>
 				<ListHeaderButton
 					active={this.state.isOpen}
 					id="listHeaderColumnButton"
 					glyph="list-unordered"
-					label="Columns"
+					label={intl.formatMessage({ id: 'columns' })}
 					onClick={() => this.togglePopout(!this.state.isOpen)}
 				/>
 				<Popout isOpen={this.state.isOpen} onCancel={() => this.togglePopout(false)} relativeToID="listHeaderColumnButton">
-					<Popout.Header title="Columns" />
+					<Popout.Header title={intl.formatMessage({ id: 'columns' })} />
 					<Popout.Body scrollable>
 						<div style={formFieldStyles}>
 							<FormInput
 								autoFocus
 								onChange={this.updateSearch}
-								placeholder="Find a column..."
+								placeholder={intl.formatMessage({ id: 'findAColumn' })}
 								value={this.state.searchString}
 							/>
 						</div>
@@ -112,13 +115,13 @@ var ListColumnsForm = React.createClass({
 					</Popout.Body>
 					<Popout.Footer
 						primaryButtonAction={this.applyColumns}
-						primaryButtonLabel="Apply"
+						primaryButtonLabel={intl.formatMessage({ id: 'apply' })}
 						secondaryButtonAction={() => this.togglePopout(false)}
-						secondaryButtonLabel="Cancel" />
+						secondaryButtonLabel={intl.formatMessage({ id: 'cancel' })} />
 				</Popout>
 			</div>
 		);
 	},
 });
 
-module.exports = ListColumnsForm;
+module.exports = injectIntl(ListColumnsForm);

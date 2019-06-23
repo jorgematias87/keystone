@@ -17,7 +17,11 @@ export default {
 		search: 'Search',
 		clearSearch: 'Clear search query',
 		filter: 'Filter',
-		findAFilter: 'Find a filter...'
+		findAFilter: 'Find a filter...',
+		apply: 'Apply',
+		cancel: 'Cancel',
+		columns: 'Columns',
+		findAColumn: 'Find a column...'
 	},
 	es: {
 		email: 'Email',
@@ -37,6 +41,10 @@ export default {
 		search: 'Buscar',
 		clearSearch: 'Borrar busqueda',
 		filter: 'Filtrar',
-		findAFilter: 'Encontrar un filtro...'
+		findAFilter: 'Encontrar un filtro...',
+		apply: 'Aplicar',
+		cancel: 'Cancelar',
+		columns: 'Columnas',
+		findAColumn: 'Encontrar una columna...'
 	}
 };
