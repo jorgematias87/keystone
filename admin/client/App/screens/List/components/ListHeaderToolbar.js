@@ -6,6 +6,7 @@ import {
 	ResponsiveText,
 } from '../../../elemental';
 import theme from '../../../../theme';
+import { injectIntl } from 'react-intl';
 
 import ListColumnsForm from './ListColumnsForm';
 import ListDownloadForm from './ListDownloadForm';
@@ -24,6 +25,8 @@ function ButtonDivider ({ style, ...props }) {
 };
 
 function CreateButton ({ listName, onClick, ...props }) {
+	const { intl } = props;
+
 	return (
 		<GlyphButton
 			block
@@ -32,13 +35,13 @@ function CreateButton ({ listName, onClick, ...props }) {
 			glyph="plus"
 			onClick={onClick}
 			position="left"
-			title={`Create ${listName}`}
+			title={`${intl.formatMessage({ id: 'create' })} ${listName}`}
 			{...props}
 		>
 			<ResponsiveText
 				visibleSM="Create"
 				visibleMD="Create"
-				visibleLG={`Create ${listName}`}
+				visibleLG={`${intl.formatMessage({ id: 'create' })} ${listName}`}
 			/>
 		</GlyphButton>
 	);
@@ -74,6 +77,8 @@ function ListHeaderToolbar ({
 
 	...props
 }) {
+	const { intl } = props;
+
 	return (
 		<Group block cssStyles={classes.wrapper}>
 			<Section grow cssStyles={classes.search}>
@@ -113,7 +118,7 @@ function ListHeaderToolbar ({
 								active={expandIsActive}
 								glyph="mirror"
 								onClick={expandOnClick}
-								title="Expand table width"
+								title={intl.formatMessage({ id: 'expandTable' })}
 							/>
 						</ButtonDivider>
 					</Section>
@@ -122,6 +127,7 @@ function ListHeaderToolbar ({
 							<CreateButton
 								listName={createListName}
 								onClick={createOnClick}
+								intl={intl}
 							/>
 						</ButtonDivider>
 					</Section>}
@@ -193,4 +199,4 @@ const classes = {
 	},
 };
 
-module.exports = ListHeaderToolbar;
+module.exports = injectIntl(ListHeaderToolbar);

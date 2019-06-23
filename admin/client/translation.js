@@ -11,7 +11,9 @@ export default {
 		sort: 'Sort',
 		sortedBy: 'sorted by',
 		findField: 'Find a field...',
-		toggleListSort: 'Hold {alt} to toggle ascending/descending'
+		toggleListSort: 'Hold {alt} to toggle ascending/descending',
+		create: 'Create',
+		expandTable: 'Expand table width'
 	},
 	es: {
 		email: 'Email',
@@ -25,6 +27,8 @@ export default {
 		sort: 'Ordenar',
 		sortedBy: 'ordenados por',
 		findField: 'Encontrar un campo...',
-		toggleListSort: 'Presionar {alt} para cambiar de ascendente/descendente'
+		toggleListSort: 'Presionar {alt} para cambiar de ascendente/descendente',
+		create: 'Crear',
+		expandTable: 'Expandir tabla'
 	}
 };
