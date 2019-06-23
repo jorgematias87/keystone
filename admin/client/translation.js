@@ -3,12 +3,21 @@ export default {
 		email: 'Email',
 		password: 'Password',
 		signin: 'Sign In',
-		signedout: 'You have been signed out.'
+		signout: 'Sign Out',
+		signedin: 'You`re already signed in.',
+		signedout: 'You have been signed out.',
+		open: 'Open',
+		hi: 'Hi {userName},',
+
 	},
 	es: {
 		email: 'Email',
 		password: 'Contraseña',
 		signin: 'Ingresar',
-		signedout: 'Te deslogueaste.'
+		signout: 'Salir',
+		signedin: 'Ya estas logueado.',
+		signedout: 'Te deslogueaste.',
+		open: 'Abrir',
+		hi: 'Hola {userName},',
 	}
 };

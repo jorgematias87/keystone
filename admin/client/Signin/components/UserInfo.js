@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Button } from '../../App/elemental';
+import { injectIntl } from 'react-intl';
 
 // TODO Figure out if we should change "Keystone" to "Admin area"
 
@@ -8,20 +9,21 @@ const UserInfo = ({
 	signoutPath,
 	userCanAccessKeystone,
 	userName,
+	intl
 }) => {
 	const adminButton = userCanAccessKeystone ? (
 		<Button href={adminPath} color="primary">
-			Open Keystone
+			{intl.formatMessage({ id: 'open' })}
 		</Button>
 	) : null;
 
 	return (
 		<div className="auth-box__col">
-			<p>Hi {userName},</p>
-			<p>You're already signed in.</p>
+			<p>{intl.formatMessage({ id: 'hi', values: { userName } })}</p>
+			<p>{intl.formatMessage({ id: 'signedin' })}</p>
 			{adminButton}
 			<Button href={signoutPath} variant="link" color="cancel">
-				Sign Out
+				{intl.formatMessage({ id: 'signout' })}
 			</Button>
 		</div>
 	);
@@ -34,4 +36,4 @@ UserInfo.propTypes = {
 	userName: PropTypes.string.isRequired,
 };
 
-module.exports = UserInfo;
+module.exports = injectIntl(UserInfo);
