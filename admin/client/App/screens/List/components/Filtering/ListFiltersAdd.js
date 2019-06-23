@@ -125,6 +125,8 @@ var ListFiltersAdd = React.createClass({
 		);
 	},
 	renderForm () {
+		const { intl } = this.props;
+
 		return (
 			<Popout.Pane onLayout={this.setPopoutHeight} key="form">
 				<ListFiltersAddForm
@@ -136,6 +138,7 @@ var ListFiltersAdd = React.createClass({
 					maxHeight={this.props.maxHeight}
 					onHeightChange={this.setPopoutHeight}
 					dispatch={this.props.dispatch}
+					intl={intl}
 				/>
 			</Popout.Pane>
 		);

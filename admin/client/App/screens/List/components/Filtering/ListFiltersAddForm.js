@@ -12,7 +12,7 @@ var ListFiltersAddForm = React.createClass({
 		onCancel: React.PropTypes.func,
 		onHeightChange: React.PropTypes.func,
 	},
-	getInitialState () {
+	getInitialState() {
 		const filterComponent = Filters[this.props.field.type];
 		let filterValue = this.props.activeFilters.filter(i => i.field.path === this.props.field.path)[0];
 		if (filterValue) {
@@ -25,7 +25,7 @@ var ListFiltersAddForm = React.createClass({
 			filterValue: filterValue,
 		};
 	},
-	updateHeight (bodyHeight) {
+	updateHeight(bodyHeight) {
 		bodyHeight += 40; // TODO: remove magic number, currently accounts for padding
 		const footerHeight = findDOMNode(this.refs.footer).offsetHeight;
 		const maxBodyHeight = this.props.maxHeight - footerHeight;
@@ -37,22 +37,24 @@ var ListFiltersAddForm = React.createClass({
 			this.props.onHeightChange(Math.min(newHeight, this.props.maxHeight));
 		});
 	},
-	updateValue (filterValue) {
+	updateValue(filterValue) {
 		this.setState({
 			filterValue: filterValue,
 		});
 	},
-	handleFormSubmit (e) {
+	handleFormSubmit(e) {
 		e.preventDefault();
 		this.props.onApply(this.state.filterValue);
 	},
-	renderInvalidFilter () {
+	renderInvalidFilter() {
 		return (
 			<div>Error: type {this.props.field.type} has no filter UI.</div>
 		);
 	},
-	render () {
+	render() {
 		var FilterComponent = this.state.filterComponent;
+		const { intl } = this.props;
+
 		return (
 			<form onSubmit={this.handleFormSubmit}>
 				<Popout.Body ref="body" scrollable style={{ height: this.state.bodyHeight }}>
@@ -61,9 +63,9 @@ var ListFiltersAddForm = React.createClass({
 				<Popout.Footer
 					ref="footer"
 					primaryButtonIsSubmit
-					primaryButtonLabel="Apply"
+					primaryButtonLabel={intl.formatMessage({ id: 'apply' })}
 					secondaryButtonAction={this.props.onCancel}
-					secondaryButtonLabel="Cancel" />
+					secondaryButtonLabel={intl.formatMessage({ id: 'cancel' })} />
 			</form>
 		);
 	},
