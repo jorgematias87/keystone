@@ -19,7 +19,7 @@ const UserInfo = ({
 
 	return (
 		<div className="auth-box__col">
-			<p>{intl.formatMessage({ id: 'hi', values: { userName } })}</p>
+			<p>{intl.formatMessage({ id: 'hi' }, userName)}</p>
 			<p>{intl.formatMessage({ id: 'signedin' })}</p>
 			{adminButton}
 			<Button href={signoutPath} variant="link" color="cancel">
