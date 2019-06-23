@@ -33,7 +33,9 @@ export default {
 		delete: 'Delete',
 		all: 'All',
 		none: 'None',
-		manage: 'Manage'
+		manage: 'Manage',
+		showing: 'Showing',
+		showingToOf: 'Showing {start} to ${end} of {total}'
 	},
 	es: {
 		email: 'Email',
@@ -69,6 +71,8 @@ export default {
 		delete: 'Eliminar',
 		all: 'Todos',
 		none: 'Ninguno',
-		manage: 'Gestionar'
+		manage: 'Gestionar',
+		showing: 'Mostrando',
+		showingToOf: 'Mostrando {start} a {end} de {total}'
 	}
 };

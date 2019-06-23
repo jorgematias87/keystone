@@ -2,19 +2,20 @@ import { css } from 'glamor';
 import React, { Component, PropTypes } from 'react';
 import Page from './page';
 import theme from '../../../theme';
+import { injectIntl } from 'react-intl';
 
 class Pagination extends Component {
 	renderCount () {
 		let count = '';
-		const { currentPage, pageSize, plural, singular, total } = this.props;
+		const { currentPage, pageSize, plural, singular, total, intl } = this.props;
 		if (!total) {
 			count = 'No ' + (plural || 'records');
 		} else if (total > pageSize) {
 			let start = (pageSize * (currentPage - 1)) + 1;
 			let end = Math.min(start + pageSize - 1, total);
-			count = `Showing ${start} to ${end} of ${total}`;
+			count = intl.formatMessage({ id: 'showingToOf' }, { start, end, total });
 		} else {
-			count = 'Showing ' + total;
+			count = `${intl.formatMessage({ id: 'showing' })} ` + total;
 			if (total > 1 && plural) {
 				count += ' ' + plural;
 			} else if (total === 1 && singular) {
@@ -108,4 +109,4 @@ Pagination.propTypes = {
 	total: PropTypes.number.isRequired,
 };
 
-module.exports = Pagination;
+module.exports = injectIntl(Pagination);
