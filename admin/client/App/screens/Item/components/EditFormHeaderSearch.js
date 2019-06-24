@@ -5,6 +5,7 @@ import { findDOMNode } from 'react-dom';
 import { css } from 'glamor';
 import { FormInput, Glyph, GlyphButton } from '../../../elemental';
 import theme from '../../../../theme';
+import { injectIntl } from 'react-intl';
 
 class EditFormHeaderSearch extends Component {
 	constructor () {
@@ -24,6 +25,7 @@ class EditFormHeaderSearch extends Component {
 			onChange,
 			onKeyUp,
 			value,
+			intl,
 			...props
 		} = this.props;
 
@@ -41,7 +43,7 @@ class EditFormHeaderSearch extends Component {
 					onBlur={() => this.setState({ focused: false })}
 					onChange={onChange}
 					onKeyUp={onKeyUp}
-					placeholder="Search"
+					placeholder={intl.formatMessage({ id: 'search' })}
 					ref="target"
 					type="search"
 					value={value}
@@ -60,7 +62,7 @@ class EditFormHeaderSearch extends Component {
 				style={{ paddingLeft: '0.7em' }}
 				data-e2e-search-icon
 			>
-				Search
+				{intl.formatMessage({ id: 'search' })}
 			</GlyphButton>
 		);
 	}
@@ -105,7 +107,7 @@ const classes = {
 	},
 };
 
-module.exports = EditFormHeaderSearch;
+module.exports = injectIntl(EditFormHeaderSearch);
 
 
 // Search

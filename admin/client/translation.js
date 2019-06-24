@@ -56,7 +56,9 @@ export default {
 		createdOn: 'Created on',
 		createdBy: 'Created by',
 		updatedOn: 'Updated on',
-		updatedBy: 'Updated by'
+		updatedBy: 'Updated by',
+		new: 'New',
+		relationships: 'Relationships'
 	},
 	es: {
 		email: 'Email',
@@ -116,5 +118,7 @@ export default {
 		createdBy: 'Creado por',
 		updatedOn: 'Actualizado en',
 		updatedBy: 'Actualizado por',
+		new: 'Nuevo',
+		relationships: 'Relaciones'
 	}
 };

@@ -27,6 +27,8 @@ import {
 	selectList,
 } from '../List/actions';
 
+import { injectIntl } from 'react-intl';
+
 var ItemView = React.createClass({
 	displayName: 'ItemView',
 	contextTypes: {
@@ -77,11 +79,13 @@ var ItemView = React.createClass({
 	renderRelationships () {
 		const { relationships } = this.props.currentList;
 		const keys = Object.keys(relationships);
+		const { intl } = this.props;
+
 		if (!keys.length) return;
 		return (
 			<div className="Relationships">
 				<Container>
-					<h2>Relationships</h2>
+					<h2>{intl.formatMessage({ id: 'relationships' })}</h2>
 					{keys.map(key => {
 						const relationship = relationships[key];
 						const refList = listsByKey[relationship.ref];
@@ -192,4 +196,4 @@ module.exports = connect((state) => ({
 	currentList: state.lists.currentList,
 	relationshipData: state.item.relationshipData,
 	drag: state.item.drag,
-}))(ItemView);
+}))(injectIntl(ItemView));

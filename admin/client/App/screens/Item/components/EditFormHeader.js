@@ -10,6 +10,8 @@ import { Link } from 'react-router';
 import Drilldown from './Drilldown';
 import { GlyphButton, ResponsiveText } from '../../../elemental';
 
+import { injectIntl } from 'react-intl';
+
 export const EditFormHeader = React.createClass({
 	displayName: 'EditFormHeader',
 	propTypes: {
@@ -17,27 +19,27 @@ export const EditFormHeader = React.createClass({
 		list: React.PropTypes.object,
 		toggleCreate: React.PropTypes.func,
 	},
-	getInitialState () {
+	getInitialState() {
 		return {
 			searchString: '',
 		};
 	},
-	toggleCreate (visible) {
+	toggleCreate(visible) {
 		this.props.toggleCreate(visible);
 	},
-	searchStringChanged (event) {
+	searchStringChanged(event) {
 		this.setState({
 			searchString: event.target.value,
 		});
 	},
-	handleEscapeKey (event) {
+	handleEscapeKey(event) {
 		const escapeKeyCode = 27;
 
 		if (event.which === escapeKeyCode) {
 			findDOMNode(this.refs.searchField).blur();
 		}
 	},
-	renderDrilldown () {
+	renderDrilldown() {
 		return (
 			<ToolbarSection left>
 				{this.renderDrilldownItems()}
@@ -45,7 +47,7 @@ export const EditFormHeader = React.createClass({
 			</ToolbarSection>
 		);
 	},
-	renderDrilldownItems () {
+	renderDrilldownItems() {
 		const { data, list } = this.props;
 		const items = data.drilldown ? data.drilldown.items : [];
 
@@ -99,7 +101,7 @@ export const EditFormHeader = React.createClass({
 			<Drilldown items={drilldown} />
 		);
 	},
-	renderSearch () {
+	renderSearch() {
 		var list = this.props.list;
 		return (
 			<form action={`${Keystone.adminPath}/${list.path}`} className="EditForm__header__search">
@@ -123,15 +125,16 @@ export const EditFormHeader = React.createClass({
 			</form>
 		);
 	},
-	renderInfo () {
+	renderInfo() {
 		return (
 			<ToolbarSection right>
 				{this.renderCreateButton()}
 			</ToolbarSection>
 		);
 	},
-	renderCreateButton () {
+	renderCreateButton() {
 		const { nocreate, autocreate, singular } = this.props.list;
+		const { intl } = this.props;
 
 		if (nocreate) return null;
 
@@ -143,11 +146,11 @@ export const EditFormHeader = React.createClass({
 		}
 		return (
 			<GlyphButton data-e2e-item-create-button="true" color="success" glyph="plus" position="left" {...props}>
-				<ResponsiveText hiddenXS={`New ${singular}`} visibleXS="Create" />
+				<ResponsiveText hiddenXS={`${intl.formatMessage({ id: 'new' })} ${singular}`} visibleXS={intl.formatMessage({ id: 'create' })} />
 			</GlyphButton>
 		);
 	},
-	render () {
+	render() {
 		return (
 			<Toolbar>
 				{this.renderDrilldown()}
@@ -159,4 +162,4 @@ export const EditFormHeader = React.createClass({
 
 export default connect((state) => ({
 	listActivePage: state.lists.page.index,
-}))(EditFormHeader);
+}))(injectIntl(EditFormHeader));
