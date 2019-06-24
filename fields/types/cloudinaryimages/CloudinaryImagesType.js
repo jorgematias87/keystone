@@ -198,7 +198,7 @@ cloudinaryimages.prototype.addToSchema = function (schema) {
 		var img = images[id];
 		if (!img) return;
 		if (method === 'delete') {
-			cloudinary.uploader.destroy(img.public_id, function () {});
+			cloudinary.uploader.destroy(img.public_id, function () { });
 		}
 		images.splice(id, 1);
 		if (callback) {
@@ -321,6 +321,7 @@ cloudinaryimages.prototype.updateItem = function (item, data, files, callback) {
 
 	// Preprocess values to deserialise JSON, detect mappings to uploaded files
 	// and flatten out arrays
+
 	values = values.map(function (value) {
 		// When the value is a string, it may be JSON serialised data.
 		if (typeof value === 'string'
@@ -345,7 +346,7 @@ cloudinaryimages.prototype.updateItem = function (item, data, files, callback) {
 		}
 		return value;
 	});
-	values = _.flatten(values);
+	values = _.flattenDeep(values);
 
 	async.map(values, function (value, next) {
 		if (typeof value === 'object' && 'public_id' in value) {
@@ -367,6 +368,7 @@ cloudinaryimages.prototype.updateItem = function (item, data, files, callback) {
 					public_id: value.originalname.substring(0, value.originalname.lastIndexOf('.')),
 				});
 			}
+
 			cloudinary.uploader.upload(value.path, function (result) {
 				if (result.error) {
 					next(result.error);
