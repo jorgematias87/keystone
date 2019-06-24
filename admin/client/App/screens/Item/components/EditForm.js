@@ -330,6 +330,7 @@ var EditForm = React.createClass({
 
 		var elements = [];
 		var data = {};
+		const { intl } = this.props;
 
 		if (this.props.list.tracking.createdAt) {
 			data.createdAt = this.props.data.fields[this.props.list.tracking.createdAt];
