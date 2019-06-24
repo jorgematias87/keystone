@@ -26,6 +26,8 @@ import { deleteItem } from '../actions';
 
 import { upcase } from '../../../../utils/string';
 
+import { injectIntl } from 'react-intl';
+
 function getNameFromData (data) {
 	if (typeof data === 'object') {
 		if (typeof data.first === 'string' && typeof data.last === 'string') {
@@ -127,7 +129,7 @@ var EditForm = React.createClass({
 		});
 	},
 	updateItem () {
-		const { data, list } = this.props;
+		const { data, list, intl } = this.props;
 		const editForm = this.refs.editForm;
 
 		// Fix for Safari where XHR form submission fails when input[type=file] is empty
@@ -162,7 +164,7 @@ var EditForm = React.createClass({
 				this.setState({
 					alerts: {
 						success: {
-							success: 'Your changes have been saved successfully',
+							success: intl.formatMessage({ id: 'editSuccess' }),
 						},
 					},
 					lastValues: this.state.values,
@@ -175,6 +177,7 @@ var EditForm = React.createClass({
 	renderKeyOrId () {
 		var className = 'EditForm__key-or-id';
 		var list = this.props.list;
+		const { intl } = this.props;
 
 		if (list.nameField && list.autokey && this.props.data[list.autokey.path]) {
 			return (
@@ -182,12 +185,12 @@ var EditForm = React.createClass({
 					<AltText
 						modified="ID:"
 						normal={`${upcase(list.autokey.path)}: `}
-						title="Press <alt> to reveal the ID"
+						title={intl.formatMessage({ id: 'revealID' })}
 						className="EditForm__key-or-id__label" />
 					<AltText
 						modified={<input ref="keyOrIdInput" onFocus={this.handleKeyFocus} value={this.props.data.id} className="EditForm__key-or-id__input" readOnly />}
 						normal={<input ref="keyOrIdInput" onFocus={this.handleKeyFocus} value={this.props.data[list.autokey.path]} className="EditForm__key-or-id__input" readOnly />}
-						title="Press <alt> to reveal the ID"
+						title={intl.formatMessage({ id: 'revealID' })}
 						className="EditForm__key-or-id__field" />
 				</div>
 			);
@@ -277,7 +280,8 @@ var EditForm = React.createClass({
 		}
 
 		const { loading } = this.state;
-		const loadingButtonText = loading ? 'Saving' : 'Save';
+		const { intl } = this.props;
+		const loadingButtonText = loading ? intl.formatMessage({ id: 'saving' }) : intl.formatMessage({ id: 'save' });
 
 		// Padding must be applied inline so the FooterBar can determine its
 		// innerHeight at runtime. Aphrodite's styling comes later...
@@ -299,16 +303,16 @@ var EditForm = React.createClass({
 					{!this.props.list.noedit && (
 						<Button disabled={loading} onClick={this.toggleResetDialog} variant="link" color="cancel" data-button="reset">
 							<ResponsiveText
-								hiddenXS="reset changes"
-								visibleXS="reset"
+								hiddenXS={intl.formatMessage({ id: 'resetChanges' })}
+								visibleXS={intl.formatMessage({ id: 'reset' })}
 							/>
 						</Button>
 					)}
 					{!this.props.list.nodelete && (
 						<Button disabled={loading} onClick={this.toggleDeleteDialog} variant="link" color="delete" style={styles.deleteButton} data-button="delete">
 							<ResponsiveText
-								hiddenXS={`delete ${this.props.list.singular.toLowerCase()}`}
-								visibleXS="delete"
+								hiddenXS={`${intl.formatMessage({ id: 'delete' })} ${this.props.list.singular.toLowerCase()}`}
+								visibleXS={intl.formatMessage({ id: 'delete' })}
 							/>
 						</Button>
 					)}
@@ -331,7 +335,7 @@ var EditForm = React.createClass({
 			data.createdAt = this.props.data.fields[this.props.list.tracking.createdAt];
 			if (data.createdAt) {
 				elements.push(
-					<FormField key="createdAt" label="Created on">
+					<FormField key="createdAt" label={intl.formatMessage({ id: 'createdOn' })}>
 						<FormInput noedit title={moment(data.createdAt).format('DD/MM/YYYY h:mm:ssa')}>{moment(data.createdAt).format('Do MMM YYYY')}</FormInput>
 					</FormField>
 				);
@@ -344,7 +348,7 @@ var EditForm = React.createClass({
 				let createdByName = getNameFromData(data.createdBy.name);
 				if (createdByName) {
 					elements.push(
-						<FormField key="createdBy" label="Created by">
+						<FormField key="createdBy" label={intl.formatMessage({ id: 'createdBy' })}>
 							<FormInput noedit>{data.createdBy.name.first} {data.createdBy.name.last}</FormInput>
 						</FormField>
 					);
@@ -356,7 +360,7 @@ var EditForm = React.createClass({
 			data.updatedAt = this.props.data.fields[this.props.list.tracking.updatedAt];
 			if (data.updatedAt && (!data.createdAt || data.createdAt !== data.updatedAt)) {
 				elements.push(
-					<FormField key="updatedAt" label="Updated on">
+					<FormField key="updatedAt" label={intl.formatMessage({ id: 'updateddOn' })}>
 						<FormInput noedit title={moment(data.updatedAt).format('DD/MM/YYYY h:mm:ssa')}>{moment(data.updatedAt).format('Do MMM YYYY')}</FormInput>
 					</FormField>
 				);
@@ -369,7 +373,7 @@ var EditForm = React.createClass({
 				let updatedByName = getNameFromData(data.updatedBy.name);
 				if (updatedByName) {
 					elements.push(
-						<FormField key="updatedBy" label="Updated by">
+						<FormField key="updatedBy" label={intl.formatMessage({ id: 'updateddBy' })}>
 							<FormInput noedit>{data.updatedBy.name.first} {data.updatedBy.name.last}</FormInput>
 						</FormField>
 					);
@@ -385,6 +389,8 @@ var EditForm = React.createClass({
 		) : null;
 	},
 	render () {
+		const { intl } = this.props;
+
 		return (
 			<form ref="editForm" className="EditForm-container">
 				{(this.state.alerts) ? <AlertMessages alerts={this.state.alerts} /> : null}
@@ -401,23 +407,27 @@ var EditForm = React.createClass({
 				</Grid.Row>
 				{this.renderFooterBar()}
 				<ConfirmationDialog
-					confirmationLabel="Reset"
+					confirmationLabel={intl.formatMessage({ id: 'reset' })}
+					cancelLabel={intl.formatMessage({ id: 'cancel' })}
 					isOpen={this.state.resetDialogIsOpen}
 					onCancel={this.toggleResetDialog}
 					onConfirmation={this.handleReset}
 				>
-					<p>Reset your changes to <strong>{this.props.data.name}</strong>?</p>
+					<p dangerouslySetInnerHTML={{ __html: intl.formatHTMLMessage({ id: 'resetChangesTo' }, { name: this.props.data.name }) }} />
 				</ConfirmationDialog>
 				<ConfirmationDialog
-					confirmationLabel="Delete"
+					confirmationLabel={intl.formatMessage({ id: 'delete' })}
+					cancelLabel={intl.formatMessage({ id: 'cancel' })}
 					isOpen={this.state.deleteDialogIsOpen}
 					onCancel={this.toggleDeleteDialog}
 					onConfirmation={this.handleDelete}
 				>
-					Are you sure you want to delete <strong>{this.props.data.name}?</strong>
-					<br />
-					<br />
-					This cannot be undone.
+					<div>
+						<span dangerouslySetInnerHTML={{ __html: intl.formatHTMLMessage({ id: 'deleteConfirmation' }, { name: this.props.data.name }) }} />
+						<br />
+						<br />
+						{intl.formatMessage({ id: 'thisCannotBeUndone' })}
+					</div>
 				</ConfirmationDialog>
 			</form>
 		);
@@ -440,4 +450,4 @@ const styles = {
 	},
 };
 
-module.exports = EditForm;
+module.exports = injectIntl(EditForm);

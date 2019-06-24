@@ -10,6 +10,7 @@ import AlertMessages from './AlertMessages';
 import { Fields } from 'FieldTypes';
 import InvalidFieldType from './InvalidFieldType';
 import { Button, Form, Modal } from '../elemental';
+import { injectIntl } from 'react-intl';
 
 const CreateForm = React.createClass({
 	displayName: 'CreateForm',
@@ -74,6 +75,8 @@ const CreateForm = React.createClass({
 		event.preventDefault();
 		const createForm = event.target;
 		const formData = new FormData(createForm);
+		const { intl } = this.props;
+
 		this.props.list.createItem(formData, (err, data) => {
 			if (data) {
 				if (this.props.onCreate) {
@@ -84,7 +87,7 @@ const CreateForm = React.createClass({
 						values: {},
 						alerts: {
 							success: {
-								success: 'Item created',
+								success: intl.formatMessage({ id: 'itemCreated' }),
 							},
 						},
 					});
@@ -116,6 +119,7 @@ const CreateForm = React.createClass({
 		var list = this.props.list;
 		var nameField = this.props.list.nameField;
 		var focusWasSet;
+		const { intl } = this.props;
 
 		// If the name field is an initial one, we need to render a proper
 		// input for it
@@ -153,7 +157,7 @@ const CreateForm = React.createClass({
 		return (
 			<Form layout="horizontal" onSubmit={this.submitForm}>
 				<Modal.Header
-					text={'Create a new ' + list.singular}
+					text={intl.formatMessage({ id: 'createANew' }, { current: list.singular })}
 					showCloseButton
 				/>
 				<Modal.Body>
@@ -162,7 +166,7 @@ const CreateForm = React.createClass({
 				</Modal.Body>
 				<Modal.Footer>
 					<Button color="success" type="submit" data-button-type="submit">
-						Create
+						{intl.formatMessage({ id: 'create' })}
 					</Button>
 					<Button
 						variant="link"
@@ -170,7 +174,7 @@ const CreateForm = React.createClass({
 						data-button-type="cancel"
 						onClick={this.props.onCancel}
 					>
-						Cancel
+						{intl.formatMessage({ id: 'cancel' })}
 					</Button>
 				</Modal.Footer>
 			</Form>
@@ -189,4 +193,4 @@ const CreateForm = React.createClass({
 	},
 });
 
-module.exports = CreateForm;
+module.exports = injectIntl(CreateForm);
