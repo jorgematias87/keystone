@@ -35,7 +35,14 @@ export default {
 		none: 'None',
 		manage: 'Manage',
 		showing: 'Showing',
-		showingToOf: 'Showing {start} to ${end} of {total}'
+		showingToOf: 'Showing {start} to ${end} of {total}',
+		deleteConfirmation: 'Are you sure you want to delete <strong>{name}</strong>?',
+		thisCannotBeUndone: 'This cannot be undone.',
+		errorNetwork: 'There is a problem with the network, we`re trying to reconnect...',
+		and: 'and',
+		nounFilter: 'Filter',
+		nounFilters: 'Filters',
+		noFoundMatching: 'No {current} found matching {matching} {filterMessage}.'
 	},
 	es: {
 		email: 'Email',
@@ -73,6 +80,13 @@ export default {
 		none: 'Ninguno',
 		manage: 'Gestionar',
 		showing: 'Mostrando',
-		showingToOf: 'Mostrando {start} a {end} de {total}'
+		showingToOf: 'Mostrando {start} a {end} de {total}',
+		deleteConfirmation: 'Estas seguro de que quieres eliminar <strong>{name}</strong>?',
+		thisCannotBeUndone: 'Esto no se puede deshacer.',
+		errorNetwork: 'Hay un problema con la red, estamos tratando de reconectarnos...',
+		and: 'y',
+		nounFilter: 'Filtro',
+		nounFilters: 'Filtros',
+		noFoundMatching: 'No se encontraron {current} que coincidan con {matching} {filterMessage}.'
 	}
 };

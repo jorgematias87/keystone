@@ -7,6 +7,7 @@ import React from 'react';
 // import { findDOMNode } from 'react-dom'; // TODO re-implement focus when ready
 import numeral from 'numeral';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 
 import {
 	BlankState,
@@ -153,17 +154,19 @@ const ListView = React.createClass({
 		const list = this.props.currentList;
 		const itemCount = pluralize(checkedItems, ('* ' + list.singular.toLowerCase()), ('* ' + list.plural.toLowerCase()));
 		const itemIds = Object.keys(checkedItems);
+		const { intl } = this.props;
 
 		this.setState({
 			confirmationDialog: {
 				isOpen: true,
-				label: 'Delete',
+				label: intl.formatMessage({ id: 'delete' }),
+				cancelLabel: intl.formatMessage({ id: 'cancel' }),
 				body: (
 					<div>
-						Are you sure you want to delete {itemCount}?
+						<span dangerouslySetInnerHTML={{ __html: intl.formatHTMLMessage({ id: 'deleteConfirmation' }, { name: itemCount }) }} />
 						<br />
 						<br />
-						This cannot be undone.
+						{intl.formatMessage({ id: 'thisCannotBeUndone' })}
 					</div>
 				),
 				onConfirmation: () => {
@@ -185,6 +188,7 @@ const ListView = React.createClass({
 		return (
 			<ConfirmationDialog
 				confirmationLabel={props.label}
+				cancelLabel={props.cancelLabel}
 				isOpen={props.isOpen}
 				onCancel={this.removeConfirmationDialog}
 				onConfirmation={props.onConfirmation}
@@ -336,6 +340,8 @@ const ListView = React.createClass({
 		});
 	},
 	deleteTableItem (item, e) {
+		const { intl } = this.props;
+
 		if (e.altKey) {
 			this.props.dispatch(deleteItem(item.id));
 			return;
@@ -346,13 +352,14 @@ const ListView = React.createClass({
 		this.setState({
 			confirmationDialog: {
 				isOpen: true,
-				label: 'Delete',
+				label: intl.formatMessage({ id: 'delete' }),
+				cancelLabel: intl.formatMessage({ id: 'cancel' }),
 				body: (
 					<div>
-						Are you sure you want to delete <strong>{item.name}</strong>?
+						<span dangerouslySetInnerHTML={{ __html: intl.formatHTMLMessage({ id: 'deleteConfirmation' }, { name: item.name }) }} />
 						<br />
 						<br />
-						This cannot be undone.
+						{intl.formatMessage({ id: 'thisCannotBeUndone' })}
 					</div>
 				),
 				onConfirmation: () => {
@@ -396,12 +403,12 @@ const ListView = React.createClass({
 	},
 	showBlankState () {
 		return !this.props.loading
-				&& !this.props.items.results.length
-				&& !this.props.active.search
-				&& !this.props.active.filters.length;
+			&& !this.props.items.results.length
+			&& !this.props.active.search
+			&& !this.props.active.filters.length;
 	},
 	renderBlankState () {
-		const { currentList } = this.props;
+		const { currentList, intl } = this.props;
 
 		if (!this.showBlankState()) return null;
 
@@ -413,7 +420,7 @@ const ListView = React.createClass({
 		// display the button if create allowed
 		const button = !currentList.nocreate ? (
 			<GlyphButton color="success" glyph="plus" position="left" onClick={onClick} data-e2e-list-create-button="no-results">
-				Create {currentList.singular}
+				{intl.formatMessage({ id: 'create' })} {currentList.singular}
 			</GlyphButton>
 		) : null;
 
@@ -421,9 +428,11 @@ const ListView = React.createClass({
 			<Container>
 				{(this.props.error) ? (
 					<FlashMessages
-						messages={{ error: [{
-							title: "There is a problem with the network, we're trying to reconnect...",
-						}] }}
+						messages={{
+							error: [{
+								title: intl.formatMessage({ id: 'errorNetwork' }),
+							}]
+						}}
 					/>
 				) : null}
 				<BlankState heading={`No ${this.props.currentList.plural.toLowerCase()} found...`} style={{ marginTop: 40 }}>
@@ -435,6 +444,7 @@ const ListView = React.createClass({
 	renderActiveState () {
 		if (this.showBlankState()) return null;
 
+		const { intl } = this.props;
 		const containerStyle = {
 			transition: 'max-width 160ms ease-out',
 			msTransition: 'max-width 160ms ease-out',
@@ -457,9 +467,11 @@ const ListView = React.createClass({
 				<Container style={containerStyle}>
 					{(this.props.error) ? (
 						<FlashMessages
-							messages={{ error: [{
-								title: "There is a problem with the network, we're trying to reconnect..",
-							}] }}
+							messages={{
+								error: [{
+									title: intl.formatMessage({ id: 'errorNetwork' }),
+								}]
+							}}
 						/>
 					) : null}
 					{(this.props.loading) ? (
@@ -493,11 +505,13 @@ const ListView = React.createClass({
 	},
 	renderNoSearchResults () {
 		if (this.props.items.results.length) return null;
+		const { intl } = this.props;
+
 		let matching = this.props.active.search;
+		let filterMessage = '';
 		if (this.props.active.filters.length) {
-			matching += (matching ? ' and ' : '') + pluralize(this.props.active.filters.length, '* filter', '* filters');
+			filterMessage = (matching ? ` ${intl.formatMessage({ id: 'and' })} ` : '') + pluralize(this.props.active.filters.length, `* ${intl.formatMessage({ id: 'nounFilter' })}`, `* ${intl.formatMessage({ id: 'nounFilters' })}`);
 		}
-		matching = matching ? ' found matching ' + matching : '.';
 		return (
 			<BlankState style={{ marginTop: 20, marginBottom: 20 }}>
 				<Glyph
@@ -506,7 +520,7 @@ const ListView = React.createClass({
 					style={{ marginBottom: 20 }}
 				/>
 				<h2 style={{ color: 'inherit' }}>
-					No {this.props.currentList.plural.toLowerCase()}{matching}
+					{intl.formatMessage({ id: 'noFoundMatching' }, { current: this.props.currentList.plural.toLowerCase(), matching, filterMessage })}
 				</h2>
 			</BlankState>
 		);
@@ -554,4 +568,4 @@ module.exports = connect((state) => {
 		rowAlert: state.lists.rowAlert,
 		active: state.active,
 	};
-})(ListView);
+})(injectIntl(ListView));
