@@ -15,6 +15,7 @@ import cloudinaryResize from '../../../admin/client/utils/cloudinaryResize';
 import Thumbnail from './CloudinaryImagesThumbnail';
 import HiddenFileInput from '../../components/HiddenFileInput';
 import FileChangeMessage from '../../components/FileChangeMessage';
+import { injectIntl } from 'react-intl';
 
 const SUPPORTED_TYPES = ['image/*', 'application/pdf', 'application/postscript'];
 const SUPPORTED_REGEX = new RegExp(/^image\/|application\/pdf|application\/postscript/g);
@@ -25,7 +26,7 @@ const RESIZE_DEFAULTS = {
 
 let uploadInc = 1000;
 
-module.exports = Field.create({
+const CloudinaryImagesField = Field.create({
 	displayName: 'CloudinaryImagesField',
 	statics: {
 		type: 'CloudinaryImages',
@@ -245,6 +246,7 @@ module.exports = Field.create({
 
 		const uploadCount = this.getCount('isQueued');
 		const deleteCount = this.getCount('isDeleted');
+		const { intl } = this.props;
 
 		// provide a gutter for the change message
 		// only required when no cancel button, which has equiv. padding
@@ -255,16 +257,16 @@ module.exports = Field.create({
 		// prepare the change message
 		const changeMessage = uploadCount || deleteCount ? (
 			<FileChangeMessage>
-				{uploadCount && deleteCount ? `${uploadCount} added and ${deleteCount} removed` : null}
-				{uploadCount && !deleteCount ? `${uploadCount} image added` : null}
-				{!uploadCount && deleteCount ? `${deleteCount} image removed` : null}
+				{uploadCount && deleteCount ? intl.formatMessage({ id: 'addedAndRemoved' }, { uploadCount, deleteCount }) : null}
+				{uploadCount && !deleteCount ? intl.formatMessage({ id: 'imageAdded' }, { uploadCount }) : null}
+				{!uploadCount && deleteCount ? intl.formatMessage({ id: 'imageRemoved' }, { deleteCount }) : null}
 			</FileChangeMessage>
 		) : null;
 
 		// prepare the save message
 		const saveMessage = uploadCount || deleteCount ? (
 			<FileChangeMessage color={!deleteCount ? 'success' : 'danger'}>
-				Save to {!deleteCount ? 'Upload' : 'Confirm'}
+				Save to {!deleteCount ? intl.formatMessage({ id: 'upload' }) : intl.formatMessage({ id: 'confirm' })}
 			</FileChangeMessage>
 		) : null;
 
@@ -276,11 +278,11 @@ module.exports = Field.create({
 		return (
 			<div style={toolbarStyles}>
 				<Button onClick={this.triggerFileBrowser} style={uploadButtonStyles} data-e2e-upload-button="true">
-					Upload Images
+					{intl.formatMessage({ id: 'uploadImages' })}
 				</Button>
 				{this.hasFiles() && (
 					<Button variant="link" color="cancel" onClick={this.clearFiles}>
-						Clear selection
+						{intl.formatMessage({ id: 'clearSelection' })}
 					</Button>
 				)}
 				{changeMessage}
@@ -306,3 +308,5 @@ module.exports = Field.create({
 		);
 	},
 });
+
+module.exports = injectIntl(CloudinaryImagesField);

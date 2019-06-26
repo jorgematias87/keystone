@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Button } from '../../../admin/client/App/elemental';
 import ImageThumbnail from '../../components/ImageThumbnail';
+import { injectIntl } from 'react-intl';
 
 function CloudinaryImagesThumbnail ({
 	isDeleted,
@@ -12,6 +13,7 @@ function CloudinaryImagesThumbnail ({
 	shouldRenderActionButton,
 	toggleDelete,
 	value,
+	intl,
 	...props
 }) {
 	// render icon feedback for intent
@@ -22,7 +24,7 @@ function CloudinaryImagesThumbnail ({
 	// action button
 	const actionButton = (shouldRenderActionButton && !isQueued) ? (
 		<Button variant="link" color={isDeleted ? 'default' : 'cancel'} block onClick={toggleDelete}>
-			{isDeleted ? 'Undo' : 'Remove'}
+			{isDeleted ? intl.formatMessage({ id: 'undo' }) : intl.formatMessage({ id: 'remove' })}
 		</Button>
 	) : null;
 
@@ -65,4 +67,4 @@ CloudinaryImagesThumbnail.propTypes = {
 	toggleDelete: PropTypes.func.isRequired,
 };
 
-module.exports = CloudinaryImagesThumbnail;
+module.exports = injectIntl(CloudinaryImagesThumbnail);

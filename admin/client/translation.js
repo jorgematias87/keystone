@@ -58,7 +58,22 @@ export default {
 		updatedOn: 'Updated on',
 		updatedBy: 'Updated by',
 		new: 'New',
-		relationships: 'Relationships'
+		relationships: 'Relationships',
+		addedAndRemoved: '{uploadCount} added and {deleteCount} removed',
+		imageAdded: '{uploadCount} image added',
+		imageRemoved: '{deleteCount} image removed',
+		upload: 'Upload',
+		confirm: 'Confirm',
+		uploadImages: 'Upload Images',
+		clearSelection: 'Clear selection',
+		saveToUpload: 'Save to Upload',
+		saveToRemove: 'Save to Remove',
+		removeImage: 'Remove Image',
+		undoRemove: 'Undo Remove',
+		change: 'Change',
+		image: 'Image',
+		undo: 'Undo',
+		remove: 'Remove'
 	},
 	es: {
 		email: 'Email',
@@ -119,6 +134,21 @@ export default {
 		updatedOn: 'Actualizado en',
 		updatedBy: 'Actualizado por',
 		new: 'Nuevo',
-		relationships: 'Relaciones'
+		relationships: 'Relaciones',
+		addedAndRemoved: '{uploadCount} agregados y {deleteCount} removidos',
+		imageAdded: '{uploadCount} imagenes agregadas',
+		imageRemoved: '{deleteCount} image removed',
+		upload: 'Subir',
+		confirm: 'Confirmar',
+		uploadImages: 'Subir Imagenes',
+		clearSelection: 'Borrar Selección',
+		saveToUpload: 'Guardar para Subir',
+		saveToRemove: 'Guardar para Eliminar',
+		removeImage: 'Eliminar Imagen',
+		undoRemove: 'Deshacer Eliminación',
+		change: 'Cambiar',
+		image: 'Imagen',
+		undo: 'Deshacer',
+		remove: 'Eliminar'
 	}
 };

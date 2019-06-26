@@ -13,6 +13,7 @@ import ImageThumbnail from '../../components/ImageThumbnail';
 import FileChangeMessage from '../../components/FileChangeMessage';
 import HiddenFileInput from '../../components/HiddenFileInput';
 import Lightbox from 'react-images';
+import { injectIntl } from 'react-intl';
 
 const SUPPORTED_TYPES = ['image/*', 'application/pdf', 'application/postscript'];
 const SUPPORTED_REGEX = new RegExp(/^image\/|application\/pdf|application\/postscript/g);
@@ -25,7 +26,7 @@ const buildInitialState = (props) => ({
 	userSelectedFile: null,
 });
 
-module.exports = Field.create({
+const CloudinaryImageField = Field.create({
 	propTypes: {
 		collapse: PropTypes.bool,
 		label: PropTypes.string,
@@ -231,16 +232,18 @@ module.exports = Field.create({
 		);
 	},
 	renderChangeMessage () {
+		const { intl } = this.props;
+
 		if (this.state.userSelectedFile) {
 			return (
 				<FileChangeMessage color="success">
-					Save to Upload
+					{intl.formatMessage({ id: 'saveToUpload' })}
 				</FileChangeMessage>
 			);
 		} else if (this.state.removeExisting) {
 			return (
 				<FileChangeMessage color="danger">
-					Save to Remove
+					{intl.formatMessage({ id: 'saveToRemove' })}
 				</FileChangeMessage>
 			);
 		} else {
@@ -250,11 +253,12 @@ module.exports = Field.create({
 
 	// Output [cancel/remove/undo] button
 	renderClearButton () {
-		const clearText = this.hasLocal() ? 'Cancel' : 'Remove Image';
+		const { intl } = this.props;
+		const clearText = this.hasLocal() ? intl.formatMessage({ id: 'cancel' }) : intl.formatMessage({ id: 'removeImage' });
 
 		return this.state.removeExisting ? (
 			<Button variant="link" onClick={this.undoRemove}>
-				Undo Remove
+				{intl.formatMessage({ id: 'undoRemove' })}
 			</Button>
 		) : (
 			<Button variant="link" color="cancel" onClick={this.handleRemove}>
@@ -264,10 +268,11 @@ module.exports = Field.create({
 	},
 
 	renderImageToolbar () {
+		const { intl } = this.props;
 		return (
 			<div key={this.props.path + '_toolbar'} className="image-toolbar">
 				<Button onClick={this.triggerFileBrowser}>
-					{this.hasImage() ? 'Change' : 'Upload'} Image
+					{this.hasImage() ? intl.formatMessage({ id: 'change' }) : intl.formatMessage({ id: 'upload' })} {intl.formatMessage({ id: 'image' })}
 				</Button>
 				{this.hasImage() ? this.renderClearButton() : null}
 			</div>
@@ -337,3 +342,5 @@ module.exports = Field.create({
 		);
 	},
 });
+
+module.exports = injectIntl(CloudinaryImageField);
