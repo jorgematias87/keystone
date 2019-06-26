@@ -10,7 +10,8 @@ import AlertMessages from './AlertMessages';
 import { Fields } from 'FieldTypes';
 import InvalidFieldType from './InvalidFieldType';
 import { Button, Form, Modal } from '../elemental';
-import { injectIntl } from 'react-intl';
+import { injectIntl, IntlProvider } from 'react-intl';
+import translation from '../../translation';
 
 const CreateForm = React.createClass({
 	displayName: 'CreateForm',
@@ -187,7 +188,9 @@ const CreateForm = React.createClass({
 				onClose={this.props.onCancel}
 				backdropClosesModal
 			>
-				{this.renderForm()}
+				<IntlProvider locale={'es'} messages={translation.es}>
+					{this.renderForm()}
+				</IntlProvider>
 			</Modal.Dialog>
 		);
 	},
